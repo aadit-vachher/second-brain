@@ -1,11 +1,20 @@
-import express from "express"
-import cors from "cors"
+const express=require("express")
+const cors=require("cors")
+require("dotenv").config()
 
-let app=express()
+const authRoutes=require("./routes/auth")
+const cardRoutes=require("./routes/cards")
+
+const app=express()
+
 app.use(cors())
 app.use(express.json())
+
 app.get("/",(req,res)=>{
-  res.send("backend running")
+  res.status(200).send("second brain backend running")
 })
 
-app.listen(3000,()=>console.log("backend live"))
+app.use("/api/auth",authRoutes)
+app.use("/api/cards",cardRoutes)
+
+app.listen(process.env.PORT,()=>console.log("backend live"))
