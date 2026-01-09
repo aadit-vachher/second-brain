@@ -1,0 +1,44 @@
+.login{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px
+}
+
+.login input{
+  width:260px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  border:1px solid #fff;
+  background:#000;
+  color:#fff
+}
+
+.login button{
+  width:260px;
+  padding:10px;
+  border:1px solid #fff;
+  background:#000;
+  color:#fff;
+  cursor:pointer
+}
+
+.login button:hover{
+  background:#fff;
+  color:#000
+}
+
+.logfooter{
+  margin-top:12px;
+  font-size:12px;
+  opacity:.6
+}
+
+.loglink{
+  cursor:pointer;
+  text-decoration:underline
+}
