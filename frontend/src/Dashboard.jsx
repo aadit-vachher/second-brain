@@ -7,6 +7,9 @@ export default function Dashboard(){
   let [cards,setCards]=useState([])
   let [title,setTitle]=useState("")
   let [content,setContent]=useState("")
+  let [tagInput,setTagInput]=useState({})
+  let [activeTag,setActiveTag]=useState("")
+  let [query,setQuery]=useState("")
 
   useEffect(()=>{
     let run=async()=>{
@@ -16,24 +19,53 @@ export default function Dashboard(){
     run()
   },[])
 
+  let reload=async()=>{
+    let res=await http.get("/api/cards")
+    setCards(res.data)
+    setActiveTag("")
+  }
+
   let create=async()=>{
     if(!title&&!content)return
     await http.post("/api/cards",{title,content})
     setTitle("")
     setContent("")
-    let res=await http.get("/api/cards")
-    setCards(res.data)
+    reload()
   }
 
   let pin=async id=>{
     await http.put("/api/cards/"+id+"/pin")
-    let res=await http.get("/api/cards")
-    setCards(res.data)
+    reload()
   }
 
   let del=async id=>{
     await http.delete("/api/cards/"+id)
-    let res=await http.get("/api/cards")
+    reload()
+  }
+
+  let addTag=async id=>{
+    let name=tagInput[id]
+    if(!name)return
+    await http.post("/api/cards/"+id+"/tags",{name})
+    setTagInput({...tagInput,[id]:""})
+    reload()
+  }
+
+  let filter=async name=>{
+    setActiveTag(name)
+    setQuery("")
+    let res=await http.get("/api/cards/tag/"+name)
+    setCards(res.data)
+  }
+
+  let search=async q=>{
+    setQuery(q)
+    setActiveTag("")
+    if(!q){
+      reload()
+      return
+    }
+    let res=await http.get("/api/cards/search/"+q)
     setCards(res.data)
   }
 
@@ -45,7 +77,16 @@ export default function Dashboard(){
       className="dash"
     >
       <div className="dashhead">
-        <h2>your brain</h2>
+        <h2>your brain {activeTag&&`/ #${activeTag}`}</h2>
+        <button
+          className="logout"
+          onClick={()=>{
+            localStorage.removeItem("token")
+            window.location="/login"
+          }}
+        >
+          logout
+        </button>
       </div>
 
       <div className="create">
@@ -54,12 +95,34 @@ export default function Dashboard(){
         <button onClick={create}>add</button>
       </div>
 
+      <input
+        placeholder="search your brain..."
+        value={query}
+        onChange={e=>search(e.target.value)}
+        className="search"
+      />
+
       <div className="grid">
         {cards.map(c=>(
           <div key={c.id} className={`card ${c.pinned?"pinned":""}`}>
             <h4>{c.title}</h4>
             <p>{c.content}</p>
+
+            <div className="tags">
+              {c.tags?.map(t=>(
+                <span key={t.tag.id} onClick={()=>filter(t.tag.name)}>#{t.tag.name}</span>
+              ))}
+            </div>
+
+            <input
+              placeholder="add tag"
+              value={tagInput[c.id]||""}
+              onChange={e=>setTagInput({...tagInput,[c.id]:e.target.value})}
+              className="taginp"
+            />
+
             <div className="cardact">
+              <span onClick={()=>addTag(c.id)}>add</span>
               <span onClick={()=>pin(c.id)}>{c.pinned?"unpin":"pin"}</span>
               <span onClick={()=>del(c.id)}>delete</span>
             </div>

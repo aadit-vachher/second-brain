@@ -66,3 +66,55 @@
 .pinned{
   border:2px solid #fff
 }
+
+.tags{
+  display:flex;
+  gap:6px;
+  font-size:11px;
+  opacity:.6
+}
+
+.tags span{
+  cursor:pointer
+}
+
+.tags span:hover{
+  text-decoration:underline
+}
+
+.taginp{
+  background:#000;
+  border:1px solid #fff;
+  color:#fff;
+  padding:6px;
+  font-size:12px
+}
+
+.search{
+  margin:10px 0 20px;
+  padding:10px;
+  background:#000;
+  border:1px solid #fff;
+  color:#fff;
+  width:100%;
+  max-width:400px
+}
+
+.logout{
+  background:#000;
+  border:1px solid #fff;
+  color:#fff;
+  padding:6px 12px;
+  cursor:pointer;
+  font-size:12px
+}
+
+.logout:hover{
+  background:#fff;
+  color:#000
+}
+.dashhead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
