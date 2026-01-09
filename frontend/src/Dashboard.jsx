@@ -25,6 +25,18 @@ export default function Dashboard(){
     setCards(res.data)
   }
 
+  let pin=async id=>{
+    await http.put("/api/cards/"+id+"/pin")
+    let res=await http.get("/api/cards")
+    setCards(res.data)
+  }
+
+  let del=async id=>{
+    await http.delete("/api/cards/"+id)
+    let res=await http.get("/api/cards")
+    setCards(res.data)
+  }
+
   return(
     <motion.div
       initial={{opacity:0,y:10}}
@@ -44,9 +56,13 @@ export default function Dashboard(){
 
       <div className="grid">
         {cards.map(c=>(
-          <div key={c.id} className="card">
+          <div key={c.id} className={`card ${c.pinned?"pinned":""}`}>
             <h4>{c.title}</h4>
             <p>{c.content}</p>
+            <div className="cardact">
+              <span onClick={()=>pin(c.id)}>{c.pinned?"unpin":"pin"}</span>
+              <span onClick={()=>del(c.id)}>delete</span>
+            </div>
           </div>
         ))}
       </div>

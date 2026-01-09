@@ -50,3 +50,19 @@
   background:#fff;
   color:#000
 }
+
+.cardact{
+  display:flex;
+  gap:12px;
+  font-size:12px;
+  opacity:.6;
+  cursor:pointer
+}
+
+.cardact span:hover{
+  text-decoration:underline
+}
+
+.pinned{
+  border:2px solid #fff
+}
