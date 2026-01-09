@@ -1,0 +1,52 @@
+.dash{
+  min-height:100vh;
+  padding:40px
+}
+
+.dashhead{
+  margin-bottom:20px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px
+}
+
+.card{
+  border:1px solid #fff;
+  padding:12px;
+  min-height:120px;
+  display:flex;
+  flex-direction:column;
+  gap:8px
+}
+
+
+.create{
+  margin:20px 0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-width:400px
+}
+
+.create input,.create textarea{
+  background:#000;
+  border:1px solid #fff;
+  color:#fff;
+  padding:10px
+}
+
+.create button{
+  background:#000;
+  border:1px solid #fff;
+  color:#fff;
+  padding:10px;
+  cursor:pointer
+}
+
+.create button:hover{
+  background:#fff;
+  color:#000
+}

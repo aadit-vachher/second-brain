@@ -1,10 +1,8 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from "./Login"
 import Signup from "./Signup"
+import Dashboard from "./Dashboard"
 
-function Dashboard(){
-  return <div style={{padding:20}}>dashboard</div>
-}
 
 export default function App(){
   return(
