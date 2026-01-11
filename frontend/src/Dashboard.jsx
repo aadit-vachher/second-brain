@@ -1,7 +1,7 @@
 import {motion} from "framer-motion"
 import {useEffect,useState} from "react"
 import http from "./http"
-import "./Dashboard.css"
+import "./dashboard.css"
 
 export default function Dashboard(){
   let [cards,setCards]=useState([])

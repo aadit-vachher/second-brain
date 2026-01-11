@@ -2,7 +2,7 @@ import {useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {motion} from "framer-motion"
 import http from "./http"
-import "./Login.css"
+import "./login.css"
 
 export default function Login(){
   let [email,setEmail]=useState("")
